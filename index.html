@@ -17,7 +17,6 @@
             overflow-x: hidden;
         }
 
-        /* Estilos gerais */
         .parallax {
             position: relative;
             height: 100vh;
@@ -31,7 +30,6 @@
             overflow: hidden;
         }
 
-        /* Correção do efeito Parallax nas imagens de fundo */
         .parallax.bg1 {
             background-image: url('imagens/fundo-1.jpg');
             background-attachment: fixed;
@@ -81,20 +79,17 @@
             background-position: center;
         }
 
-        /* Inicialmente o conteúdo é invisível */
         .content {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1s ease, transform 1s ease;
         }
 
-        /* Quando a classe 'visible' é adicionada */
         .visible .content {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Botões de Navegação */
         .scroll-buttons {
             position: fixed;
             top: 50%;
@@ -103,7 +98,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            z-index: 1000;  /* Garantir que os botões fiquem acima de outros elementos */
+            z-index: 1000;
         }
 
         .scroll-button {
@@ -125,10 +120,9 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* Media Queries para responsividade */
         @media (max-width: 768px) {
             .parallax {
-                font-size: 2rem; /* Reduzir o tamanho do texto */
+                font-size: 2rem;
                 text-align: center;
                 padding: 0 20px;
             }
@@ -146,7 +140,7 @@
 
         @media (max-width: 480px) {
             .parallax {
-                font-size: 1.5rem; /* Reduzir ainda mais em telas muito pequenas */
+                font-size: 1.5rem;
             }
 
             .scroll-buttons {
@@ -163,9 +157,14 @@
     </style>
 </head>
 <body>
-    <!-- Seções com parallax -->
+    <!-- Música de fundo com controle do volume -->
+    <audio id="background-audio" autoplay loop muted>
+        <source src="musica/musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento audio.
+    </audio>
+
     <section class="parallax bg1">
-        <div class="content">Bem-vindo</div>
+        <div class="content">Bem-vindo ao Parallax</div>
     </section>
     <section class="parallax bg2">
         <div class="content">Explore a Natureza</div>
@@ -177,7 +176,7 @@
         <div class="content">Maravilhas do Oceano</div>
     </section>
     <section class="parallax bg5">
-        <div class="content">Mistérios do Horizonte</div>
+        <div class="content">Mistérios do Deserto</div>
     </section>
     <section class="parallax bg6">
         <div class="content">Vibração da Cidade</div>
@@ -186,19 +185,16 @@
         <div class="content">Imensidão do Espaço</div>
     </section>
 
-    <!-- Botões de navegação -->
     <div class="scroll-buttons">
         <button class="scroll-button" aria-label="Scroll up" onclick="scrollPage(-1)">▲</button>
         <button class="scroll-button" aria-label="Scroll down" onclick="scrollPage(1)">▼</button>
     </div>
 
     <script>
-        // Função para rolar para cima ou para baixo
         function scrollPage(direction) {
             const sections = document.querySelectorAll(".parallax");
             let currentSectionIndex = 0;
 
-            // Encontrar a seção atual
             sections.forEach((section, index) => {
                 const rect = section.getBoundingClientRect();
                 if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
@@ -206,7 +202,6 @@
                 }
             });
 
-            // Calcula a próxima seção
             let nextIndex = currentSectionIndex + direction;
 
             if (nextIndex >= 0 && nextIndex < sections.length) {
@@ -214,27 +209,34 @@
             }
         }
 
-        // Usando IntersectionObserver para detectar visibilidade da seção
         const observerOptions = {
-            root: null,  // Usando a janela de visualização do navegador
+            root: null,
             rootMargin: "0px",
-            threshold: 0.5  // A seção será considerada visível quando 50% dela estiver na tela
+            threshold: 0.5
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');  // Adiciona a classe 'visible' quando a seção entra na tela
+                    entry.target.classList.add('visible');
                 } else {
-                    entry.target.classList.remove('visible');  // Remove a classe 'visible' quando a seção sai da tela
+                    entry.target.classList.remove('visible');
                 }
             });
         }, observerOptions);
 
-        // Selecionando todas as seções com conteúdo
         const sections = document.querySelectorAll('.parallax');
         sections.forEach(section => {
-            observer.observe(section);  // Observa cada seção
+            observer.observe(section);
+        });
+
+        // Habilitar o som ao clicar em um botão
+        const audio = document.getElementById('background-audio');
+        window.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.muted = false;
+                audio.play();
+            }
         });
     </script>
 </body>
