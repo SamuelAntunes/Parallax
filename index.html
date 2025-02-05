@@ -31,38 +31,52 @@
             overflow: hidden;
         }
 
-        /* Ajuste nas imagens de fundo */
+        /* Correção do efeito Parallax nas imagens de fundo */
         .parallax.bg1 {
             background-image: url('imagens/fundo-1.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
         }
 
         .parallax.bg2 {
             background-image: url('imagens/fundo-2.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
         }
 
         .parallax.bg3 {
             background-image: url('imagens/fundo-3.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
         }
 
         .parallax.bg4 {
             background-image: url('imagens/fundo-4.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
         }
 
         .parallax.bg5 {
             background-image: url('imagens/fundo-5.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
         }
 
         .parallax.bg6 {
             background-image: url('imagens/fundo-6.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
         }
 
         .parallax.bg7 {
             background-image: url('imagens/fundo-7.jpg');
-        }
-
-        /* Correção para imagem de fundo com Parallax */
-        .parallax {
-            background-attachment: scroll;
+            background-attachment: fixed;
             background-size: cover;
             background-position: center;
         }
@@ -128,11 +142,6 @@
                 height: 40px;
                 font-size: 18px;
             }
-
-            /* Substituir a técnica de parallax com um efeito similar em dispositivos móveis */
-            .parallax {
-                background-attachment: scroll; /* Alternativa para dispositivos móveis */
-            }
         }
 
         @media (max-width: 480px) {
@@ -156,7 +165,7 @@
 <body>
     <!-- Seções com parallax -->
     <section class="parallax bg1">
-        <div class="content">Bem-vindo</div>
+        <div class="content">Bem-vindo ao Parallax</div>
     </section>
     <section class="parallax bg2">
         <div class="content">Explore a Natureza</div>
@@ -168,7 +177,7 @@
         <div class="content">Maravilhas do Oceano</div>
     </section>
     <section class="parallax bg5">
-        <div class="content">Mistérios do Horizonte</div>
+        <div class="content">Mistérios do Deserto</div>
     </section>
     <section class="parallax bg6">
         <div class="content">Vibração da Cidade</div>
