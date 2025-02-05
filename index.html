@@ -17,6 +17,7 @@
             overflow-x: hidden;
         }
 
+        /* Estilos gerais */
         .parallax {
             position: relative;
             height: 100vh;
@@ -79,14 +80,14 @@
             background-position: center;
         }
 
-        /* Inicialmente, o conteúdo fica invisível */
+        /* Inicialmente o conteúdo é invisível */
         .content {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1s ease, transform 1s ease;
         }
 
-        /* Quando a classe 'visible' for adicionada, o conteúdo aparece */
+        /* Quando a classe 'visible' é adicionada */
         .visible .content {
             opacity: 1;
             transform: translateY(0);
@@ -101,6 +102,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            z-index: 1000;  /* Garantir que os botões fiquem acima de outros elementos */
         }
 
         .scroll-button {
@@ -115,14 +117,52 @@
             align-items: center;
             justify-content: center;
             transition: background 0.3s;
+            outline: none;
         }
 
         .scroll-button:hover {
             background: rgba(255, 255, 255, 0.5);
         }
+
+        /* Media Queries para responsividade */
+        @media (max-width: 768px) {
+            .parallax {
+                font-size: 2rem; /* Reduzir o tamanho do texto */
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .scroll-buttons {
+                right: 10px;
+            }
+
+            .scroll-button {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .parallax {
+                font-size: 1.5rem; /* Reduzir ainda mais em telas muito pequenas */
+            }
+
+            .scroll-buttons {
+                right: 5px;
+                gap: 5px;
+            }
+
+            .scroll-button {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Seções com parallax -->
     <section class="parallax bg1">
         <div class="content">Bem-vindo</div>
     </section>
@@ -136,7 +176,7 @@
         <div class="content">Maravilhas do Oceano</div>
     </section>
     <section class="parallax bg5">
-        <div class="content">Mistérios do Orisonte</div>
+        <div class="content">Mistérios do Horizonte</div>
     </section>
     <section class="parallax bg6">
         <div class="content">Vibração da Cidade</div>
@@ -145,9 +185,10 @@
         <div class="content">Imensidão do Espaço</div>
     </section>
 
+    <!-- Botões de navegação -->
     <div class="scroll-buttons">
-        <button class="scroll-button" onclick="scrollPage(-1)">▲</button>
-        <button class="scroll-button" onclick="scrollPage(1)">▼</button>
+        <button class="scroll-button" aria-label="Scroll up" onclick="scrollPage(-1)">▲</button>
+        <button class="scroll-button" aria-label="Scroll down" onclick="scrollPage(1)">▼</button>
     </div>
 
     <script>
@@ -179,7 +220,7 @@
             threshold: 0.5  // A seção será considerada visível quando 50% dela estiver na tela
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');  // Adiciona a classe 'visible' quando a seção entra na tela
