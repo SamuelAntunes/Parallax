@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Parallax</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        .parallax {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .parallax.bg1 {
+            background-image: url('imagens/fundo-1.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax.bg2 {
+            background-image: url('imagens/fundo-2.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax.bg3 {
+            background-image: url('imagens/fundo-3.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax.bg4 {
+            background-image: url('imagens/fundo-4.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax.bg5 {
+            background-image: url('imagens/fundo-5.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax.bg6 {
+            background-image: url('imagens/fundo-6.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax.bg7 {
+            background-image: url('imagens/fundo-7.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Inicialmente, o conteúdo fica invisível */
+        .content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        /* Quando a classe 'visible' for adicionada, o conteúdo aparece */
+        .visible .content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botões de Navegação */
+        .scroll-buttons {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .scroll-button {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .scroll-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <section class="parallax bg1">
+        <div class="content">Bem-vindo</div>
+    </section>
+    <section class="parallax bg2">
+        <div class="content">Explore a Natureza</div>
+    </section>
+    <section class="parallax bg3">
+        <div class="content">Sinta a Aventura</div>
+    </section>
+    <section class="parallax bg4">
+        <div class="content">Maravilhas do Oceano</div>
+    </section>
+    <section class="parallax bg5">
+        <div class="content">Mistérios do Orisonte</div>
+    </section>
+    <section class="parallax bg6">
+        <div class="content">Vibração da Cidade</div>
+    </section>
+    <section class="parallax bg7">
+        <div class="content">Imensidão do Espaço</div>
+    </section>
+
+    <div class="scroll-buttons">
+        <button class="scroll-button" onclick="scrollPage(-1)">▲</button>
+        <button class="scroll-button" onclick="scrollPage(1)">▼</button>
+    </div>
+
+    <script>
+        // Função para rolar para cima ou para baixo
+        function scrollPage(direction) {
+            const sections = document.querySelectorAll(".parallax");
+            let currentSectionIndex = 0;
+
+            // Encontrar a seção atual
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    currentSectionIndex = index;
+                }
+            });
+
+            // Calcula a próxima seção
+            let nextIndex = currentSectionIndex + direction;
+
+            if (nextIndex >= 0 && nextIndex < sections.length) {
+                sections[nextIndex].scrollIntoView({ behavior: "smooth" });
+            }
+        }
+
+        // Usando IntersectionObserver para detectar visibilidade da seção
+        const observerOptions = {
+            root: null,  // Usando a janela de visualização do navegador
+            rootMargin: "0px",
+            threshold: 0.5  // A seção será considerada visível quando 50% dela estiver na tela
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');  // Adiciona a classe 'visible' quando a seção entra na tela
+                } else {
+                    entry.target.classList.remove('visible');  // Remove a classe 'visible' quando a seção sai da tela
+                }
+            });
+        }, observerOptions);
+
+        // Selecionando todas as seções com conteúdo
+        const sections = document.querySelectorAll('.parallax');
+        sections.forEach(section => {
+            observer.observe(section);  // Observa cada seção
+        });
+    </script>
+</body>
+</html>
