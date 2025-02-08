@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.parallax {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.parallax.bg1 { background-image: url('../imagens/fundo-1.jpg'); }
+.parallax.bg2 { background-image: url('../imagens/fundo-2.jpg'); }
+.parallax.bg3 { background-image: url('../imagens/fundo-3.jpg'); }
+.parallax.bg4 { background-image: url('../imagens/fundo-4.jpg'); }
+.parallax.bg5 { background-image: url('../imagens/fundo-5.jpg'); }
+.parallax.bg6 { background-image: url('../imagens/fundo-6.jpg'); }
+.parallax.bg7 { background-image: url('../imagens/fundo-7.jpg'); }
+
+.parallax {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+.content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.visible .content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-buttons {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.scroll-button {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    outline: none;
+}
+
+.scroll-button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .parallax {
+        font-size: 2rem;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .scroll-buttons {
+        right: 10px;
+    }
+
+    .scroll-button {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .parallax {
+        font-size: 1.5rem;
+    }
+
+    .scroll-buttons {
+        right: 5px;
+        gap: 5px;
+    }
+
+    .scroll-button {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
